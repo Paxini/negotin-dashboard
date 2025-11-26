@@ -208,10 +208,20 @@ function selectBM(bmId) {
     
     document.getElementById('bmNumber').textContent = `BM ${bm.id}`;
     document.getElementById('bmName').textContent = bm.name;
-    document.getElementById('bmLocation').textContent = bm.location || 'Negotin';
+    document.getElementById('bmLocation').textContent = bm.settlement || bm.location || 'Negotin';
+    document.getElementById('bmAddress').textContent = bm.address || `${bm.settlement}, ${bm.name}`;
     document.getElementById('bmVoters').textContent = bm.voters.toLocaleString();
     document.getElementById('bmPriority').textContent = bm.priority;
     document.getElementById('bmControl').textContent = bm.control;
+    
+    // Show field notes if available
+    const fieldNotesEl = document.getElementById('bmFieldNotes');
+    if (bm.notes && bm.notes.trim()) {
+        fieldNotesEl.textContent = bm.notes;
+        fieldNotesEl.parentElement.classList.remove('hidden');
+    } else {
+        fieldNotesEl.parentElement.classList.add('hidden');
+    }
     
     // Update status indicator
     const status = bmStatuses[bmId] || 'none';

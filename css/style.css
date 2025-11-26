@@ -358,9 +358,44 @@ body {
 }
 
 .bm-location {
+    font-size: 0.875rem;
+    color: var(--accent-primary);
+    margin-bottom: var(--space-xs);
+    font-weight: 500;
+}
+
+.bm-address {
     font-size: 0.8rem;
     color: var(--text-secondary);
     margin-bottom: var(--space-md);
+}
+
+.field-notes {
+    background: var(--bg-tertiary);
+    border-left: 3px solid var(--status-warn);
+    padding: var(--space-sm) var(--space-md);
+    margin-bottom: var(--space-md);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.field-notes.hidden {
+    display: none;
+}
+
+.field-notes-label {
+    font-size: 0.7rem;
+    color: var(--status-warn);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: block;
+    margin-bottom: var(--space-xs);
+}
+
+.field-notes p {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    margin: 0;
 }
 
 .bm-stats {
