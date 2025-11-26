@@ -147,24 +147,35 @@ function addMarkers() {
 }
 
 function featureStyle(feature) {
-    const title = feature.properties.title || '';
-    const match = title.match(/BM (\d+)/);
-    const bmId = match ? parseInt(match[1]) : null;
+    // Support both original (BR_BM) and simplified (title) format
+    let bmId = null;
+    if (feature.properties.BR_BM) {
+        bmId = parseInt(feature.properties.BR_BM);
+    } else if (feature.properties.title) {
+        const match = feature.properties.title.match(/BM (\d+)/);
+        bmId = match ? parseInt(match[1]) : null;
+    }
+    
     const bm = bmId ? BM_DATA.find(b => b.id === bmId) : null;
     
     return {
         fillColor: bm ? getColorForBM(bm) : '#64748b',
         weight: 1,
-        opacity: 0.8,
+        opacity: 0.9,
         color: '#ffffff',
-        fillOpacity: 0.6
+        fillOpacity: 0.7
     };
 }
 
 function onEachFeature(feature, layer) {
-    const title = feature.properties.title || '';
-    const match = title.match(/BM (\d+)/);
-    const bmId = match ? parseInt(match[1]) : null;
+    // Support both original (BR_BM) and simplified (title) format
+    let bmId = null;
+    if (feature.properties.BR_BM) {
+        bmId = parseInt(feature.properties.BR_BM);
+    } else if (feature.properties.title) {
+        const match = feature.properties.title.match(/BM (\d+)/);
+        bmId = match ? parseInt(match[1]) : null;
+    }
     
     if (bmId) {
         layer.bmId = bmId;
@@ -172,7 +183,9 @@ function onEachFeature(feature, layer) {
         
         const bm = BM_DATA.find(b => b.id === bmId);
         if (bm) {
-            layer.bindTooltip(`BM ${bmId}: ${bm.name}`, {
+            // Use original name if available
+            const displayName = feature.properties.Naziv_BM || bm.name;
+            layer.bindTooltip(`BM ${bmId}: ${displayName}`, {
                 permanent: false,
                 direction: 'center'
             });
