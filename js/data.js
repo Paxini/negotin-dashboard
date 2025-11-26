@@ -951,20 +951,24 @@ const COLOR_SCHEMES = {
     priority: {
         name: 'Kampanja Prioritet',
         colors: {
-            1: '#10b981',
-            2: '#34d399',
-            3: '#fbbf24',
-            4: '#f59e0b',
-            5: '#f97316',
-            6: '#fb923c',
-            7: '#ef4444',
-            8: '#dc2626'
+            1: '#dc2626',  // Crvena - Prioritet 1 (SPN ubija)
+            2: '#ea580c',  // Tamno narandžasta - Prioritet 2
+            3: '#f59e0b',  // Narandžasta - Prioritet 3 (SPN donekle)
+            4: '#eab308',  // Žuta - Prioritet 4 (Desničari)
+            5: '#84cc16',  // Lime - Prioritet 5 (Duboka apst.)
+            6: '#22c55e',  // Zelena - Prioritet 6 (Plitka apst.)
+            7: '#94a3b8',  // Siva - Neutralno (SNS prosek)
+            8: '#3b82f6'   // Plava - Ne diraj
         },
         legend: [
-            { value: '1-2', color: '#10b981', label: 'Visok prioritet' },
-            { value: '3-4', color: '#fbbf24', label: 'Srednji' },
-            { value: '5-6', color: '#f97316', label: 'Nizak' },
-            { value: '7-8', color: '#ef4444', label: 'Ne diraj' }
+            { value: '1', color: '#dc2626', label: 'P1 - SPN ubija' },
+            { value: '2', color: '#ea580c', label: 'P2 - SPN jak' },
+            { value: '3', color: '#f59e0b', label: 'P3 - SPN donekle' },
+            { value: '4', color: '#eab308', label: 'P4 - Desničari' },
+            { value: '5', color: '#84cc16', label: 'P5 - Duboka apst.' },
+            { value: '6', color: '#22c55e', label: 'P6 - Plitka apst.' },
+            { value: '7', color: '#94a3b8', label: 'Neutralno' },
+            { value: '8', color: '#3b82f6', label: 'Ne diraj' }
         ]
     },
     control: {
