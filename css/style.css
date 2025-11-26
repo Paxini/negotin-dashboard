@@ -2,7 +2,8 @@
    IZBORNI ŠTAB NEGOTIN - DASHBOARD STYLES
    ============================================ */
 
-:root {
+:root,
+:root[data-theme="dark"] {
     /* Typography */
     --font-primary: 'Space Grotesk', -apple-system, sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
@@ -24,10 +25,8 @@
     --status-wait: #f59e0b;
     --status-warn: #f97316;
     --status-alert: #ef4444;
-}
-
-/* Dark Theme (default) */
-[data-theme="dark"] {
+    
+    /* Dark Theme Colors (default) */
     --bg-primary: #0a0e17;
     --bg-secondary: #111827;
     --bg-tertiary: #1e2a3a;
@@ -44,47 +43,28 @@
     --border-color: #2d3a4f;
     --border-glow: rgba(59, 130, 246, 0.5);
     
-    --map-tiles: 'dark';
+    --logo-gradient: linear-gradient(135deg, #3b82f6, #8b5cf6);
 }
 
 /* Light Theme */
-[data-theme="light"] {
-    --bg-primary: #f8fafc;
+:root[data-theme="light"] {
+    --bg-primary: #f0f4f8;
     --bg-secondary: #ffffff;
-    --bg-tertiary: #f1f5f9;
+    --bg-tertiary: #e2e8f0;
     --bg-card: #ffffff;
     
     --text-primary: #0f172a;
     --text-secondary: #475569;
-    --text-muted: #94a3b8;
+    --text-muted: #64748b;
     
     --accent-primary: #2563eb;
     --accent-secondary: #7c3aed;
-    --accent-glow: rgba(37, 99, 235, 0.2);
+    --accent-glow: rgba(37, 99, 235, 0.15);
     
-    --border-color: #e2e8f0;
-    --border-glow: rgba(37, 99, 235, 0.3);
+    --border-color: #cbd5e1;
+    --border-glow: rgba(37, 99, 235, 0.2);
     
-    --map-tiles: 'light';
-}
-
-/* Default to dark theme */
-:root {
-    --bg-primary: #0a0e17;
-    --bg-secondary: #111827;
-    --bg-tertiary: #1e2a3a;
-    --bg-card: #162032;
-    
-    --text-primary: #f0f4f8;
-    --text-secondary: #94a3b8;
-    --text-muted: #64748b;
-    
-    --accent-primary: #3b82f6;
-    --accent-secondary: #8b5cf6;
-    --accent-glow: rgba(59, 130, 246, 0.3);
-    
-    --border-color: #2d3a4f;
-    --border-glow: rgba(59, 130, 246, 0.5);
+    --logo-gradient: linear-gradient(135deg, #2563eb, #7c3aed);
 }
 
 /* Reset & Base */
@@ -111,9 +91,21 @@ body {
     display: flex;
     flex-direction: column;
     height: 100vh;
+    background: var(--bg-primary);
+    transition: background-color 0.3s ease;
+}
+
+:root[data-theme="dark"] .app-container {
     background: 
         radial-gradient(ellipse at top left, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
         radial-gradient(ellipse at bottom right, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+        var(--bg-primary);
+}
+
+:root[data-theme="light"] .app-container {
+    background: 
+        radial-gradient(ellipse at top left, rgba(37, 99, 235, 0.05) 0%, transparent 50%),
+        radial-gradient(ellipse at bottom right, rgba(124, 58, 237, 0.05) 0%, transparent 50%),
         var(--bg-primary);
 }
 
@@ -127,6 +119,11 @@ body {
     border-bottom: 1px solid var(--border-color);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     z-index: 100;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+:root[data-theme="light"] .header {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
 .header-left {
@@ -139,7 +136,7 @@ body {
     font-size: 1.5rem;
     font-weight: 700;
     letter-spacing: -0.5px;
-    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    background: var(--logo-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -416,6 +413,7 @@ body {
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .panel {
@@ -759,6 +757,17 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
     background: var(--text-muted);
+}
+
+/* Light theme Leaflet popup */
+:root[data-theme="light"] .leaflet-popup-content-wrapper {
+    background: var(--bg-card);
+    color: var(--text-primary);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+}
+
+:root[data-theme="light"] .leaflet-popup-tip {
+    background: var(--bg-card);
 }
 
 /* Responsive */
