@@ -76,28 +76,26 @@ function updateMapTiles() {
 
 function loadTheme() {
     const savedTheme = localStorage.getItem('negotin_theme') || 'dark';
-    setTheme(savedTheme);
+    currentTheme = savedTheme;
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    console.log('Theme loaded:', savedTheme);
 }
 
 function setTheme(theme) {
     currentTheme = theme;
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('negotin_theme', theme);
-    
-    // Update toggle icon
-    const icon = document.querySelector('.theme-icon');
-    if (icon) {
-        icon.textContent = theme === 'dark' ? '☀️' : '🌙';
-    }
+    console.log('Theme set to:', theme);
     
     // Update map tiles if map exists
-    if (map && tileLayer) {
+    if (map) {
         updateMapTiles();
     }
 }
 
 function toggleTheme() {
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    console.log('Toggling theme from', currentTheme, 'to', newTheme);
     setTheme(newTheme);
 }
 
@@ -379,7 +377,13 @@ function populateBMList() {
 
 function setupEventListeners() {
     // Theme toggle
-    document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+    const themeToggle = document.getElementById('themeToggle');
+    if (themeToggle) {
+        themeToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            toggleTheme();
+        });
+    }
     
     // Color mode selector
     document.getElementById('colorMode').addEventListener('change', (e) => {
