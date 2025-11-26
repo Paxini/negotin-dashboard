@@ -9,11 +9,16 @@ let markers = {};
 let selectedBM = null;
 let currentColorMode = 'priority';
 let bmStatuses = {}; // Store statuses locally
+let currentTheme = 'dark';
+let tileLayer = null;
 
 // Initialize on DOM load
 document.addEventListener('DOMContentLoaded', init);
 
 function init() {
+    // Load saved theme
+    loadTheme();
+    
     // Load saved statuses from localStorage
     loadStatuses();
     
@@ -46,16 +51,54 @@ function initMap() {
         attributionControl: false
     });
     
-    // Dark tile layer
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-        maxZoom: 19
-    }).addTo(map);
+    // Add tile layer based on theme
+    updateMapTiles();
     
     // Add attribution
     L.control.attribution({
         prefix: false,
         position: 'bottomright'
     }).addAttribution('© OpenStreetMap').addTo(map);
+}
+
+function updateMapTiles() {
+    const darkTiles = 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
+    const lightTiles = 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
+    
+    if (tileLayer) {
+        map.removeLayer(tileLayer);
+    }
+    
+    tileLayer = L.tileLayer(currentTheme === 'dark' ? darkTiles : lightTiles, {
+        maxZoom: 19
+    }).addTo(map);
+}
+
+function loadTheme() {
+    const savedTheme = localStorage.getItem('negotin_theme') || 'dark';
+    setTheme(savedTheme);
+}
+
+function setTheme(theme) {
+    currentTheme = theme;
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('negotin_theme', theme);
+    
+    // Update toggle icon
+    const icon = document.querySelector('.theme-icon');
+    if (icon) {
+        icon.textContent = theme === 'dark' ? '☀️' : '🌙';
+    }
+    
+    // Update map tiles if map exists
+    if (map && tileLayer) {
+        updateMapTiles();
+    }
+}
+
+function toggleTheme() {
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
 }
 
 function loadGeoJSON() {
@@ -335,6 +378,9 @@ function populateBMList() {
 }
 
 function setupEventListeners() {
+    // Theme toggle
+    document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+    
     // Color mode selector
     document.getElementById('colorMode').addEventListener('change', (e) => {
         currentColorMode = e.target.value;

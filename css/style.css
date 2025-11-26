@@ -3,28 +3,6 @@
    ============================================ */
 
 :root {
-    /* Color Palette - Dark Theme with Electric Accents */
-    --bg-primary: #0a0e17;
-    --bg-secondary: #111827;
-    --bg-tertiary: #1e2a3a;
-    --bg-card: #162032;
-    
-    --text-primary: #f0f4f8;
-    --text-secondary: #94a3b8;
-    --text-muted: #64748b;
-    
-    --accent-primary: #3b82f6;
-    --accent-secondary: #8b5cf6;
-    --accent-glow: rgba(59, 130, 246, 0.3);
-    
-    --status-ok: #10b981;
-    --status-wait: #f59e0b;
-    --status-warn: #f97316;
-    --status-alert: #ef4444;
-    
-    --border-color: #2d3a4f;
-    --border-glow: rgba(59, 130, 246, 0.5);
-    
     /* Typography */
     --font-primary: 'Space Grotesk', -apple-system, sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
@@ -40,6 +18,73 @@
     --radius-sm: 6px;
     --radius-md: 10px;
     --radius-lg: 16px;
+    
+    /* Status Colors (same for both themes) */
+    --status-ok: #10b981;
+    --status-wait: #f59e0b;
+    --status-warn: #f97316;
+    --status-alert: #ef4444;
+}
+
+/* Dark Theme (default) */
+[data-theme="dark"] {
+    --bg-primary: #0a0e17;
+    --bg-secondary: #111827;
+    --bg-tertiary: #1e2a3a;
+    --bg-card: #162032;
+    
+    --text-primary: #f0f4f8;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    
+    --accent-primary: #3b82f6;
+    --accent-secondary: #8b5cf6;
+    --accent-glow: rgba(59, 130, 246, 0.3);
+    
+    --border-color: #2d3a4f;
+    --border-glow: rgba(59, 130, 246, 0.5);
+    
+    --map-tiles: 'dark';
+}
+
+/* Light Theme */
+[data-theme="light"] {
+    --bg-primary: #f8fafc;
+    --bg-secondary: #ffffff;
+    --bg-tertiary: #f1f5f9;
+    --bg-card: #ffffff;
+    
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-muted: #94a3b8;
+    
+    --accent-primary: #2563eb;
+    --accent-secondary: #7c3aed;
+    --accent-glow: rgba(37, 99, 235, 0.2);
+    
+    --border-color: #e2e8f0;
+    --border-glow: rgba(37, 99, 235, 0.3);
+    
+    --map-tiles: 'light';
+}
+
+/* Default to dark theme */
+:root {
+    --bg-primary: #0a0e17;
+    --bg-secondary: #111827;
+    --bg-tertiary: #1e2a3a;
+    --bg-card: #162032;
+    
+    --text-primary: #f0f4f8;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    
+    --accent-primary: #3b82f6;
+    --accent-secondary: #8b5cf6;
+    --accent-glow: rgba(59, 130, 246, 0.3);
+    
+    --border-color: #2d3a4f;
+    --border-glow: rgba(59, 130, 246, 0.5);
 }
 
 /* Reset & Base */
@@ -129,6 +174,36 @@ body {
     color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 0.5px;
+}
+
+/* Theme Toggle */
+.theme-toggle {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-md);
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    margin-left: var(--space-lg);
+}
+
+.theme-toggle:hover {
+    background: var(--accent-primary);
+    border-color: var(--accent-primary);
+    transform: scale(1.05);
+}
+
+.theme-icon {
+    font-size: 1.25rem;
+    transition: transform 0.3s ease;
+}
+
+.theme-toggle:hover .theme-icon {
+    transform: rotate(180deg);
 }
 
 /* Main Content */
