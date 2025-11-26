@@ -18,32 +18,6 @@
 </head>
 <body>
     <div class="app-container">
-        <!-- Header -->
-        <header class="header">
-            <div class="header-left">
-                <h1 class="logo">⚡ ŠTAB NEGOTIN</h1>
-                <span class="subtitle">Kontrolni Dashboard</span>
-            </div>
-            <div class="header-right">
-                <div class="stats-mini">
-                    <div class="stat-item">
-                        <span class="stat-value" id="totalBM">72</span>
-                        <span class="stat-label">BM</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-value" id="totalVoters">0</span>
-                        <span class="stat-label">Birača</span>
-                    </div>
-                </div>
-                <div class="theme-switch" id="themeToggle" title="Promeni temu">
-                    <div class="theme-switch-track">
-                        <span class="theme-switch-icon sun">☀️</span>
-                        <span class="theme-switch-icon moon">🌙</span>
-                        <div class="theme-switch-thumb"></div>
-                    </div>
-                </div>
-            </div>
-        </header>
 
         <!-- Main Content -->
         <main class="main-content">
@@ -51,7 +25,6 @@
             <section class="map-section">
                 <div class="map-controls">
                     <div class="control-group">
-                        <label for="colorMode">Bojenje mape:</label>
                         <select id="colorMode">
                             <option value="priority">Kampanja Prioritet</option>
                             <option value="control">Kontrola Rizik</option>
@@ -60,8 +33,18 @@
                         </select>
                     </div>
                     <div class="control-group">
-                        <label for="searchBM">Pretraga:</label>
-                        <input type="text" id="searchBM" placeholder="Naziv ili broj BM...">
+                        <input type="text" id="searchBM" placeholder="🔍 Pretraga BM...">
+                    </div>
+                    <div class="control-group stats-compact">
+                        <span class="stat-compact"><strong id="totalBM">72</strong> BM</span>
+                        <span class="stat-compact"><strong id="totalVoters">0</strong> birača</span>
+                    </div>
+                    <div class="theme-switch" id="themeToggle" title="Promeni temu">
+                        <div class="theme-switch-track">
+                            <span class="theme-switch-icon sun">☀️</span>
+                            <span class="theme-switch-icon moon">🌙</span>
+                            <div class="theme-switch-thumb"></div>
+                        </div>
                     </div>
                 </div>
                 <div id="map"></div>
