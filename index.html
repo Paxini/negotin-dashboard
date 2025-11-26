@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Izborni Štab Negotin - Kontrolni Dashboard</title>
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <h1 class="logo">⚡ ŠTAB NEGOTIN</h1>
+                <span class="subtitle">Kontrolni Dashboard</span>
+            </div>
+            <div class="header-right">
+                <div class="stats-mini">
+                    <div class="stat-item">
+                        <span class="stat-value" id="totalBM">72</span>
+                        <span class="stat-label">BM</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="totalVoters">0</span>
+                        <span class="stat-label">Birača</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Map Section -->
+            <section class="map-section">
+                <div class="map-controls">
+                    <div class="control-group">
+                        <label for="colorMode">Bojenje mape:</label>
+                        <select id="colorMode">
+                            <option value="priority">Kampanja Prioritet</option>
+                            <option value="control">Kontrola Rizik</option>
+                            <option value="voters">Broj Birača</option>
+                            <option value="status">Status (Izborni Dan)</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label for="searchBM">Pretraga:</label>
+                        <input type="text" id="searchBM" placeholder="Naziv ili broj BM...">
+                    </div>
+                </div>
+                <div id="map"></div>
+                <div class="legend" id="legend"></div>
+            </section>
+
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <!-- Info Panel -->
+                <div class="panel info-panel" id="infoPanel">
+                    <h3>ℹ️ Informacije</h3>
+                    <p class="hint">Kliknite na biračko mesto na mapi za detalje</p>
+                    <div class="bm-details hidden" id="bmDetails">
+                        <div class="bm-header">
+                            <span class="bm-number" id="bmNumber">BM 1</span>
+                            <span class="bm-status" id="bmStatus">●</span>
+                        </div>
+                        <h4 id="bmName">Naziv biračkog mesta</h4>
+                        <p class="bm-location" id="bmLocation">Lokacija</p>
+                        
+                        <div class="bm-stats">
+                            <div class="bm-stat">
+                                <span class="label">Birača</span>
+                                <span class="value" id="bmVoters">0</span>
+                            </div>
+                            <div class="bm-stat">
+                                <span class="label">Prioritet</span>
+                                <span class="value" id="bmPriority">-</span>
+                            </div>
+                            <div class="bm-stat">
+                                <span class="label">Kontrola</span>
+                                <span class="value" id="bmControl">-</span>
+                            </div>
+                        </div>
+
+                        <div class="status-buttons">
+                            <h5>Status na izborni dan:</h5>
+                            <div class="btn-group">
+                                <button class="status-btn ok" data-status="ok" title="Sve OK">✓</button>
+                                <button class="status-btn wait" data-status="wait" title="Čeka se">⏳</button>
+                                <button class="status-btn warn" data-status="warn" title="Pažnja">⚠</button>
+                                <button class="status-btn alert" data-status="alert" title="Problem">🚨</button>
+                            </div>
+                        </div>
+
+                        <div class="notes-section">
+                            <label for="bmNotes">Beleške:</label>
+                            <textarea id="bmNotes" placeholder="Dodaj belešku..."></textarea>
+                            <button class="btn-save" id="saveNotes">Sačuvaj</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- List Panel -->
+                <div class="panel list-panel">
+                    <div class="panel-header">
+                        <h3>📋 Lista BM</h3>
+                        <div class="filter-buttons">
+                            <button class="filter-btn active" data-filter="all">Svi</button>
+                            <button class="filter-btn" data-filter="alert">🚨</button>
+                            <button class="filter-btn" data-filter="warn">⚠</button>
+                        </div>
+                    </div>
+                    <div class="bm-list" id="bmList">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <!-- App Data & Logic -->
+    <script src="js/data.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
+
