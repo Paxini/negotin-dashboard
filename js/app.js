@@ -7,7 +7,7 @@ let map;
 let geojsonLayer;
 let markers = {};
 let selectedBM = null;
-let currentColorMode = 'delta2023';
+let currentColorMode = 'delta2023a';
 let bmStatuses = {}; // Store statuses locally
 let currentTheme = 'dark';
 let tileLayer = null;
@@ -204,9 +204,12 @@ function getColorForBM(bm) {
             return scheme.colors[bm.control] || '#64748b';
         case 'voters':
             return scheme.getColor(bm.voters);
-        case 'delta2023':
-            const delta = DELTA_2023[bm.id.toString()];
-            return scheme.getColor(delta);
+        case 'delta2023a':
+            const deltaA = DELTA_2023_A[bm.id.toString()];
+            return scheme.getColor(deltaA);
+        case 'delta2023b':
+            const deltaB = DELTA_2023_B[bm.id.toString()];
+            return scheme.getColor(deltaB);
         case 'status':
             return scheme.colors[status] || scheme.colors['none'];
         default:
@@ -271,11 +274,11 @@ function selectBM(bmId) {
     document.getElementById('bmPriority').textContent = bm.priority;
     document.getElementById('bmControl').textContent = bm.control;
     
-    // Display Delta 2023 value
-    const delta = DELTA_2023[bm.id.toString()];
-    document.getElementById('bmDelta').textContent = delta !== undefined && delta !== null 
-        ? delta.toFixed(4) 
-        : 'N/A';
+    // Display Delta 2023 values
+    const deltaA = DELTA_2023_A[bm.id.toString()];
+    const deltaB = DELTA_2023_B[bm.id.toString()];
+    document.getElementById('bmDelta').textContent = 
+        `A: ${deltaA !== undefined && deltaA !== null ? deltaA.toFixed(2) : 'N/A'} | B: ${deltaB !== undefined && deltaB !== null ? deltaB.toFixed(2) : 'N/A'}`;
     
     // Show field notes if available
     const fieldNotesEl = document.getElementById('bmFieldNotes');

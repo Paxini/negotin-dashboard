@@ -947,7 +947,7 @@ const STATS = {
 };
 
 // Delta 2023 A data from ANALIZA1.xlsx - Negotin uzorak sheet, column Z
-const DELTA_2023 = {
+const DELTA_2023_A = {
     "1": 0.4, "2": 0.29, "3": 0.28, "4": 0.2, "5": 0.16,
     "6": 0.21, "7": 0.28, "8": 0.12, "9": 0.28, "10": -0.03,
     "11": 0.31, "12": 0.17, "13": 0.21, "14": 0.17, "15": 0.34,
@@ -963,6 +963,25 @@ const DELTA_2023 = {
     "61": 0.0, "62": 0.06, "63": 0.23, "64": -0.1, "65": 0.0,
     "66": 0.36, "67": 0.0, "68": 0.0, "69": -0.11, "70": 0.23,
     "71": 0.0, "72": 0.19
+};
+
+// Delta 2023 B data from ANALIZA2a.xlsx - Negotin uzorak sheet, column Z
+const DELTA_2023_B = {
+    "1": 0.13, "2": 0.14, "3": -0.02, "4": 0.0, "5": 0.0,
+    "6": 0.09, "7": 0.09, "8": -0.04, "9": 0.13, "10": 0.04,
+    "11": 0.13, "12": 0.08, "13": 0.05, "14": 0.07, "15": 0.16,
+    "16": 0.18, "17": 0.14, "18": 0.0, "19": 0.01, "20": -0.1,
+    "21": -0.01, "22": -0.11, "23": -0.03, "24": 0.0, "25": -0.01,
+    "26": 0.51, "27": 0.02, "28": -0.0, "29": -0.14, "30": 0.28,
+    "31": 0.32, "32": 0.03, "33": 1.32, "34": 0.1, "35": -0.02,
+    "36": -0.19, "37": -0.12, "38": 0.05, "39": -0.01, "40": -0.15,
+    "41": 0.02, "42": -0.17, "43": -0.02, "44": -0.13, "45": 0.04,
+    "46": 0.05, "47": 0.0, "48": 0.25, "49": -0.05, "50": 0.08,
+    "51": 0.16, "52": 0.27, "53": -0.09, "54": -0.15, "55": -0.13,
+    "56": 0.1, "57": -0.11, "58": 0.14, "59": -0.01, "60": 0.09,
+    "61": -0.13, "62": 0.03, "63": 0.12, "64": -0.11, "65": -0.05,
+    "66": 0.08, "67": 0.08, "68": -0.09, "69": -0.14, "70": 0.06,
+    "71": -0.01, "72": -0.01
 };
 
 // Color schemes for different modes
@@ -1037,7 +1056,7 @@ const COLOR_SCHEMES = {
             { value: 'alert', color: '#ef4444', label: 'Problem' }
         ]
     },
-    delta2023: {
+    delta2023a: {
         name: 'Delta 2023 A (Uzorak)',
         // Delta 2023 A from column Z - measures change/deviation
         // Range: -0.13 to 1.83, all 72 BM have data
@@ -1060,6 +1079,33 @@ const COLOR_SCHEMES = {
             { value: '0.15-0.3', color: '#ef4444', label: 'Srednja (0.15-0.3)' },
             { value: '0-0.15', color: '#fca5a5', label: 'Niska (>0-0.15)' },
             { value: '0', color: '#6b7280', label: 'Kontrolni uzorak (0)' },
+            { value: '-0.05-0', color: '#6ee7b7', label: 'Blago negativna' },
+            { value: '<-0.05', color: '#059669', label: 'Negativna (<-0.05)' }
+        ]
+    },
+    delta2023b: {
+        name: 'Delta 2023 B (Uzorak)',
+        // Delta 2023 B from ANALIZA2a.xlsx column Z
+        // Range: -0.19 to 1.32, all 72 BM have data
+        // Diverging red-gray-green scale (high delta = bad/red, low/negative = good/green)
+        getColor: function(delta) {
+            if (delta === null || delta === undefined) return '#6b7280';
+            if (delta >= 1.0) return '#7f1d1d';    // Very high - darkest red
+            if (delta >= 0.5) return '#991b1b';    // High - dark red
+            if (delta >= 0.3) return '#dc2626';    // Medium-high - red
+            if (delta >= 0.15) return '#ef4444';   // Medium - light red
+            if (delta > 0) return '#fca5a5';       // Low positive - pale red
+            if (delta === 0) return '#6b7280';     // Zero - gray
+            if (delta >= -0.05) return '#6ee7b7';  // Slight negative - light green
+            return '#059669';                       // Negative - green
+        },
+        legend: [
+            { value: '1.0+', color: '#7f1d1d', label: 'Kritična (>1.0)' },
+            { value: '0.5-1.0', color: '#991b1b', label: 'Vrlo visoka (0.5-1.0)' },
+            { value: '0.3-0.5', color: '#dc2626', label: 'Visoka (0.3-0.5)' },
+            { value: '0.15-0.3', color: '#ef4444', label: 'Srednja (0.15-0.3)' },
+            { value: '0-0.15', color: '#fca5a5', label: 'Niska (>0-0.15)' },
+            { value: '0', color: '#6b7280', label: 'Neutralno (0)' },
             { value: '-0.05-0', color: '#6ee7b7', label: 'Blago negativna' },
             { value: '<-0.05', color: '#059669', label: 'Negativna (<-0.05)' }
         ]
