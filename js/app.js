@@ -210,6 +210,9 @@ function getColorForBM(bm) {
         case 'delta2023b':
             const deltaB = DELTA_2023_B[bm.id.toString()];
             return scheme.getColor(deltaB);
+        case 'delta2023c':
+            const deltaC = DELTA_2023_C[bm.id.toString()];
+            return scheme.getColor(deltaC);
         case 'status':
             return scheme.colors[status] || scheme.colors['none'];
         default:
@@ -277,8 +280,9 @@ function selectBM(bmId) {
     // Display Delta 2023 values
     const deltaA = DELTA_2023_A[bm.id.toString()];
     const deltaB = DELTA_2023_B[bm.id.toString()];
+    const deltaC = DELTA_2023_C[bm.id.toString()];
     document.getElementById('bmDelta').textContent = 
-        `A: ${deltaA !== undefined && deltaA !== null ? deltaA.toFixed(2) : 'N/A'} | B: ${deltaB !== undefined && deltaB !== null ? deltaB.toFixed(2) : 'N/A'}`;
+        `A: ${deltaA !== undefined && deltaA !== null ? deltaA.toFixed(2) : 'N/A'} | B: ${deltaB !== undefined && deltaB !== null ? deltaB.toFixed(2) : 'N/A'} | C: ${deltaC !== undefined && deltaC !== null ? deltaC.toFixed(2) : 'N/A'}`;
     
     // Show field notes if available
     const fieldNotesEl = document.getElementById('bmFieldNotes');

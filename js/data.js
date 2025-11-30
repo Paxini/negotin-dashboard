@@ -984,6 +984,25 @@ const DELTA_2023_B = {
     "71": -0.01, "72": -0.01
 };
 
+// Delta 2023 C data from ANALIZA2a.xlsx - Negotin uzorak sheet, column AC
+const DELTA_2023_C = {
+    "1": -0.01, "2": -0.0, "3": 0.0, "4": -0.11, "5": -0.1,
+    "6": -0.02, "7": -0.07, "8": 0.0, "9": 0.05, "10": -0.07,
+    "11": -0.01, "12": -0.08, "13": 0.0, "14": -0.06, "15": 0.04,
+    "16": 0.01, "17": 0.0, "18": -0.06, "19": -0.03, "20": -0.1,
+    "21": -0.08, "22": 0.0, "23": 0.0, "24": -0.1, "25": -0.06,
+    "26": 0.39, "27": 0.0, "28": -0.03, "29": 0.0, "30": 0.0,
+    "31": 0.0, "32": -0.03, "33": 1.17, "34": -0.06, "35": -0.11,
+    "36": -0.21, "37": -0.16, "38": 0.03, "39": -0.05, "40": 0.0,
+    "41": -0.0, "42": -0.18, "43": -0.02, "44": 0.0, "45": -0.08,
+    "46": 0.01, "47": -0.17, "48": 0.21, "49": -0.11, "50": -0.01,
+    "51": 0.1, "52": 0.18, "53": -0.09, "54": -0.16, "55": -0.16,
+    "56": 0.05, "57": -0.13, "58": 0.0, "59": -0.04, "60": 0.05,
+    "61": -0.14, "62": -0.03, "63": 0.11, "64": -0.16, "65": -0.07,
+    "66": 0.08, "67": 0.08, "68": -0.11, "69": -0.18, "70": 0.02,
+    "71": -0.07, "72": -0.11
+};
+
 // Color schemes for different modes
 const COLOR_SCHEMES = {
     priority: {
@@ -1087,6 +1106,33 @@ const COLOR_SCHEMES = {
         name: 'Delta 2023 B (Uzorak)',
         // Delta 2023 B from ANALIZA2a.xlsx column Z
         // Range: -0.19 to 1.32, all 72 BM have data
+        // Diverging red-gray-green scale (high delta = bad/red, low/negative = good/green)
+        getColor: function(delta) {
+            if (delta === null || delta === undefined) return '#6b7280';
+            if (delta >= 1.0) return '#7f1d1d';    // Very high - darkest red
+            if (delta >= 0.5) return '#991b1b';    // High - dark red
+            if (delta >= 0.3) return '#dc2626';    // Medium-high - red
+            if (delta >= 0.15) return '#ef4444';   // Medium - light red
+            if (delta > 0) return '#fca5a5';       // Low positive - pale red
+            if (delta === 0) return '#6b7280';     // Zero - gray
+            if (delta >= -0.05) return '#6ee7b7';  // Slight negative - light green
+            return '#059669';                       // Negative - green
+        },
+        legend: [
+            { value: '1.0+', color: '#7f1d1d', label: 'Kritična (>1.0)' },
+            { value: '0.5-1.0', color: '#991b1b', label: 'Vrlo visoka (0.5-1.0)' },
+            { value: '0.3-0.5', color: '#dc2626', label: 'Visoka (0.3-0.5)' },
+            { value: '0.15-0.3', color: '#ef4444', label: 'Srednja (0.15-0.3)' },
+            { value: '0-0.15', color: '#fca5a5', label: 'Niska (>0-0.15)' },
+            { value: '0', color: '#6b7280', label: 'Neutralno (0)' },
+            { value: '-0.05-0', color: '#6ee7b7', label: 'Blago negativna' },
+            { value: '<-0.05', color: '#059669', label: 'Negativna (<-0.05)' }
+        ]
+    },
+    delta2023c: {
+        name: 'Delta 2023 C (Uzorak)',
+        // Delta 2023 C from ANALIZA2a.xlsx column AC
+        // Range: -0.21 to 1.17, all 72 BM have data
         // Diverging red-gray-green scale (high delta = bad/red, low/negative = good/green)
         getColor: function(delta) {
             if (delta === null || delta === undefined) return '#6b7280';
