@@ -7,7 +7,7 @@ let map;
 let geojsonLayer;
 let markers = {};
 let selectedBM = null;
-let currentColorMode = 'priority';
+let currentColorMode = 'delta2023';
 let bmStatuses = {}; // Store statuses locally
 let currentTheme = 'dark';
 let tileLayer = null;
