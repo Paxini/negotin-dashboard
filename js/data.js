@@ -946,6 +946,24 @@ const STATS = {
     totalVoters: 35914
 };
 
+// Delta 2023 data from ANALIZA1.xlsx - Negotin uzorak sheet
+const DELTA_2023 = {
+    "1": 0.404, "2": 0.2868, "3": 0.2826, "4": 0.2046, "5": 0.1603,
+    "6": 0.2062, "7": 0.2841, "8": 0.1237, "9": 0.2839, "10": -0.026,
+    "11": 0.3117, "12": 0.1669, "13": 0.2131, "14": 0.173, "15": 0.3415,
+    "16": 0.382, "17": 0.4256, "18": 0.1382, "19": 0.2231, "20": 0.0606,
+    "21": 0.0198, "22": 0.1021, "23": 0.1218, "24": 0.332, "25": 0.2568,
+    "26": 0.9371, "27": 0.1031, "28": 0.2637, "29": 0.0026, "30": 0.315,
+    "31": 0.7176, "32": 0.1754, "33": 1.8343, "34": 0.2792, "35": 0.0713,
+    "36": -0.1289, "37": -0.0608, "38": 0.161, "39": 0.217, "40": 0.0127,
+    "41": 0.2985, "42": -0.1098, "43": 0.1581, "44": 0.0065, "45": 0.2332,
+    "46": 0.1491, "47": 0.0905, "48": 0.3393, "49": 0.1142, "50": 0.1851,
+    "51": 0.3525, "52": 0.5104, "54": 0.0017, "55": -0.064, "56": 0.1838,
+    "57": -0.003, "58": 0.2821, "59": 0.098, "62": 0.0612, "63": 0.2315,
+    "64": -0.0951, "66": 0.3556, "69": -0.1126, "70": 0.2309, "72": 0.1879
+    // BM 53, 60, 61, 65, 67, 68, 71 nemaju podatke (kontrolni uzorak)
+};
+
 // Color schemes for different modes
 const COLOR_SCHEMES = {
     priority: {
@@ -1016,6 +1034,29 @@ const COLOR_SCHEMES = {
             { value: 'wait', color: '#f59e0b', label: 'Čeka se' },
             { value: 'warn', color: '#f97316', label: 'Pažnja' },
             { value: 'alert', color: '#ef4444', label: 'Problem' }
+        ]
+    },
+    delta2023: {
+        name: 'Delta 2023 (Uzorak)',
+        // Delta measures the change/deviation - higher positive = more growth potential
+        // Range: -0.13 to 1.83
+        getColor: function(delta) {
+            if (delta === null || delta === undefined) return '#64748b'; // No data - gray
+            if (delta >= 0.5) return '#7c3aed';    // Very high positive - purple
+            if (delta >= 0.3) return '#2563eb';    // High positive - blue
+            if (delta >= 0.15) return '#10b981';   // Medium positive - green
+            if (delta >= 0) return '#84cc16';      // Low positive - lime
+            if (delta >= -0.05) return '#fbbf24';  // Slight negative - yellow
+            return '#ef4444';                       // Negative - red
+        },
+        legend: [
+            { value: '0.5+', color: '#7c3aed', label: 'Vrlo visoka delta (>0.5)' },
+            { value: '0.3-0.5', color: '#2563eb', label: 'Visoka delta (0.3-0.5)' },
+            { value: '0.15-0.3', color: '#10b981', label: 'Srednja delta (0.15-0.3)' },
+            { value: '0-0.15', color: '#84cc16', label: 'Niska delta (0-0.15)' },
+            { value: '-0.05-0', color: '#fbbf24', label: 'Blago negativna (-0.05-0)' },
+            { value: '<-0.05', color: '#ef4444', label: 'Negativna (<-0.05)' },
+            { value: 'N/A', color: '#64748b', label: 'Bez podataka (kontrolni)' }
         ]
     }
 };

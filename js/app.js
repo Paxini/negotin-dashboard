@@ -204,6 +204,9 @@ function getColorForBM(bm) {
             return scheme.colors[bm.control] || '#64748b';
         case 'voters':
             return scheme.getColor(bm.voters);
+        case 'delta2023':
+            const delta = DELTA_2023[bm.id.toString()];
+            return scheme.getColor(delta);
         case 'status':
             return scheme.colors[status] || scheme.colors['none'];
         default:
@@ -267,6 +270,12 @@ function selectBM(bmId) {
     document.getElementById('bmVoters').textContent = bm.voters.toLocaleString();
     document.getElementById('bmPriority').textContent = bm.priority;
     document.getElementById('bmControl').textContent = bm.control;
+    
+    // Display Delta 2023 value
+    const delta = DELTA_2023[bm.id.toString()];
+    document.getElementById('bmDelta').textContent = delta !== undefined && delta !== null 
+        ? delta.toFixed(4) 
+        : 'N/A';
     
     // Show field notes if available
     const fieldNotesEl = document.getElementById('bmFieldNotes');
