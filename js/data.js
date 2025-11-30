@@ -946,22 +946,23 @@ const STATS = {
     totalVoters: 35914
 };
 
-// Delta 2023 data from ANALIZA1.xlsx - Negotin uzorak sheet
+// Delta 2023 A data from ANALIZA1.xlsx - Negotin uzorak sheet, column Z
 const DELTA_2023 = {
-    "1": 0.404, "2": 0.2868, "3": 0.2826, "4": 0.2046, "5": 0.1603,
-    "6": 0.2062, "7": 0.2841, "8": 0.1237, "9": 0.2839, "10": -0.026,
-    "11": 0.3117, "12": 0.1669, "13": 0.2131, "14": 0.173, "15": 0.3415,
-    "16": 0.382, "17": 0.4256, "18": 0.1382, "19": 0.2231, "20": 0.0606,
-    "21": 0.0198, "22": 0.1021, "23": 0.1218, "24": 0.332, "25": 0.2568,
-    "26": 0.9371, "27": 0.1031, "28": 0.2637, "29": 0.0026, "30": 0.315,
-    "31": 0.7176, "32": 0.1754, "33": 1.8343, "34": 0.2792, "35": 0.0713,
-    "36": -0.1289, "37": -0.0608, "38": 0.161, "39": 0.217, "40": 0.0127,
-    "41": 0.2985, "42": -0.1098, "43": 0.1581, "44": 0.0065, "45": 0.2332,
-    "46": 0.1491, "47": 0.0905, "48": 0.3393, "49": 0.1142, "50": 0.1851,
-    "51": 0.3525, "52": 0.5104, "54": 0.0017, "55": -0.064, "56": 0.1838,
-    "57": -0.003, "58": 0.2821, "59": 0.098, "62": 0.0612, "63": 0.2315,
-    "64": -0.0951, "66": 0.3556, "69": -0.1126, "70": 0.2309, "72": 0.1879
-    // BM 53, 60, 61, 65, 67, 68, 71 nemaju podatke (kontrolni uzorak)
+    "1": 0.4, "2": 0.29, "3": 0.28, "4": 0.2, "5": 0.16,
+    "6": 0.21, "7": 0.28, "8": 0.12, "9": 0.28, "10": -0.03,
+    "11": 0.31, "12": 0.17, "13": 0.21, "14": 0.17, "15": 0.34,
+    "16": 0.38, "17": 0.43, "18": 0.14, "19": 0.22, "20": 0.06,
+    "21": 0.02, "22": 0.1, "23": 0.12, "24": 0.33, "25": 0.26,
+    "26": 0.94, "27": 0.1, "28": 0.26, "29": 0.0, "30": 0.31,
+    "31": 0.72, "32": 0.18, "33": 1.83, "34": 0.28, "35": 0.07,
+    "36": -0.13, "37": -0.06, "38": 0.16, "39": 0.22, "40": 0.01,
+    "41": 0.3, "42": -0.11, "43": 0.16, "44": 0.01, "45": 0.23,
+    "46": 0.15, "47": 0.09, "48": 0.34, "49": 0.11, "50": 0.19,
+    "51": 0.35, "52": 0.51, "53": 0.0, "54": 0.0, "55": -0.06,
+    "56": 0.18, "57": 0.0, "58": 0.28, "59": 0.1, "60": 0.0,
+    "61": 0.0, "62": 0.06, "63": 0.23, "64": -0.1, "65": 0.0,
+    "66": 0.36, "67": 0.0, "68": 0.0, "69": -0.11, "70": 0.23,
+    "71": 0.0, "72": 0.19
 };
 
 // Color schemes for different modes
@@ -1037,15 +1038,16 @@ const COLOR_SCHEMES = {
         ]
     },
     delta2023: {
-        name: 'Delta 2023 (Uzorak)',
-        // Delta measures the change/deviation - higher positive = more growth potential
-        // Range: -0.13 to 1.83
+        name: 'Delta 2023 A (Uzorak)',
+        // Delta 2023 A from column Z - measures change/deviation
+        // Range: -0.13 to 1.83, all 72 BM have data
         getColor: function(delta) {
             if (delta === null || delta === undefined) return '#64748b'; // No data - gray
             if (delta >= 0.5) return '#7c3aed';    // Very high positive - purple
             if (delta >= 0.3) return '#2563eb';    // High positive - blue
             if (delta >= 0.15) return '#10b981';   // Medium positive - green
-            if (delta >= 0) return '#84cc16';      // Low positive - lime
+            if (delta > 0) return '#84cc16';       // Low positive - lime
+            if (delta === 0) return '#64748b';     // Zero - gray (kontrolni)
             if (delta >= -0.05) return '#fbbf24';  // Slight negative - yellow
             return '#ef4444';                       // Negative - red
         },
@@ -1053,10 +1055,10 @@ const COLOR_SCHEMES = {
             { value: '0.5+', color: '#7c3aed', label: 'Vrlo visoka delta (>0.5)' },
             { value: '0.3-0.5', color: '#2563eb', label: 'Visoka delta (0.3-0.5)' },
             { value: '0.15-0.3', color: '#10b981', label: 'Srednja delta (0.15-0.3)' },
-            { value: '0-0.15', color: '#84cc16', label: 'Niska delta (0-0.15)' },
+            { value: '0-0.15', color: '#84cc16', label: 'Niska delta (>0-0.15)' },
+            { value: '0', color: '#64748b', label: 'Nula (kontrolni uzorak)' },
             { value: '-0.05-0', color: '#fbbf24', label: 'Blago negativna (-0.05-0)' },
-            { value: '<-0.05', color: '#ef4444', label: 'Negativna (<-0.05)' },
-            { value: 'N/A', color: '#64748b', label: 'Bez podataka (kontrolni)' }
+            { value: '<-0.05', color: '#ef4444', label: 'Negativna (<-0.05)' }
         ]
     }
 };
