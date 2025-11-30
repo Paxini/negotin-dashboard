@@ -1041,25 +1041,27 @@ const COLOR_SCHEMES = {
         name: 'Delta 2023 A (Uzorak)',
         // Delta 2023 A from column Z - measures change/deviation
         // Range: -0.13 to 1.83, all 72 BM have data
-        // Diverging green-gray-red scale (intuitive: green=good, red=bad)
+        // Diverging red-gray-green scale (high delta = bad/red, low/negative = good/green)
         getColor: function(delta) {
             if (delta === null || delta === undefined) return '#6b7280'; // No data - gray
-            if (delta >= 0.5) return '#047857';    // Very high - dark emerald
-            if (delta >= 0.3) return '#059669';    // High - emerald
-            if (delta >= 0.15) return '#10b981';   // Medium - green
-            if (delta > 0) return '#6ee7b7';       // Low positive - light green
+            if (delta >= 1.0) return '#7f1d1d';    // Very high - darkest red
+            if (delta >= 0.5) return '#991b1b';    // High - dark red
+            if (delta >= 0.3) return '#dc2626';    // Medium-high - red
+            if (delta >= 0.15) return '#ef4444';   // Medium - light red
+            if (delta > 0) return '#fca5a5';       // Low positive - pale red
             if (delta === 0) return '#6b7280';     // Zero - gray (kontrolni)
-            if (delta >= -0.05) return '#fca5a5';  // Slight negative - light red
-            return '#dc2626';                       // Negative - red
+            if (delta >= -0.05) return '#6ee7b7';  // Slight negative - light green
+            return '#059669';                       // Negative - green
         },
         legend: [
-            { value: '0.5+', color: '#047857', label: 'Vrlo visoka (>0.5)' },
-            { value: '0.3-0.5', color: '#059669', label: 'Visoka (0.3-0.5)' },
-            { value: '0.15-0.3', color: '#10b981', label: 'Srednja (0.15-0.3)' },
-            { value: '0-0.15', color: '#6ee7b7', label: 'Niska (>0-0.15)' },
+            { value: '1.0+', color: '#7f1d1d', label: 'Kritična (>1.0)' },
+            { value: '0.5-1.0', color: '#991b1b', label: 'Vrlo visoka (0.5-1.0)' },
+            { value: '0.3-0.5', color: '#dc2626', label: 'Visoka (0.3-0.5)' },
+            { value: '0.15-0.3', color: '#ef4444', label: 'Srednja (0.15-0.3)' },
+            { value: '0-0.15', color: '#fca5a5', label: 'Niska (>0-0.15)' },
             { value: '0', color: '#6b7280', label: 'Kontrolni uzorak (0)' },
-            { value: '-0.05-0', color: '#fca5a5', label: 'Blago negativna' },
-            { value: '<-0.05', color: '#dc2626', label: 'Negativna (<-0.05)' }
+            { value: '-0.05-0', color: '#6ee7b7', label: 'Blago negativna' },
+            { value: '<-0.05', color: '#059669', label: 'Negativna (<-0.05)' }
         ]
     }
 };
